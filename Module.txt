@@ -1,0 +1,17 @@
+﻿Name: MainBit.MultiTenancy
+AntiForgery: enabled
+Author: The MainBit Team
+Website: http://mainbit.com
+Version: 1.9
+OrchardVersion: 1.9
+Description: Description for the module
+Features:
+    MainBit.MultiTenancy:
+        Description: Provides tenant picker part (for relating content item and tenant).
+		Dependencies:
+	MainBit.MultiTenancy.Relations:
+        Description: Provides content part that allow to pick tenant for content items (relate a tenant and a content item).
+		Dependencies: MainBit.MultiTenancy
+	MainBit.MultiTenancy.Layouts:
+        Description: Provides TenancyProjection element that uses query from default tenant.
+		Dependencies: Orchard.Layouts, Orchard.Projections, Orchard.Forms, Orchard.Tokens, MainBit.MultiTenancy

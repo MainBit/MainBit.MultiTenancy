@@ -1,0 +1,9 @@
+﻿@model  MainBit.MultiTenancy.ViewModels.TenantEditorViewModel
+<fieldset>
+    <legend>@T("Tenant")</legend>
+    <div class="editor-field">
+        @Html.LabelFor(m => m.TenantPart.Name, T("Tenant"))
+        @Html.DropDownListFor(x => x.TenantPart.Name, Model.TenantSettings.Select(p => new SelectListItem() { Value = p.Name, Text = p.Name }), string.Empty)
+        <span class="hint"></span>
+    </div>
+</fieldset>
