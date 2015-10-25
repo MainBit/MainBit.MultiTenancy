@@ -35,7 +35,7 @@ namespace MainBit.MultiTenancy.Drivers {
         public IOrchardServices Services { get; set; }
 
         protected override string Prefix {
-            get { return "Tenancy"; }
+            get { return "Tenant"; }
         }
 
         protected override DriverResult Display(TenantPart part, string displayType, dynamic shapeHelper)

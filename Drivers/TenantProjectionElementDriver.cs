@@ -49,7 +49,7 @@ namespace MainBit.MultiTenancy.Drivers
         protected override void OnDisplaying(TenantProjection element, ElementDisplayContext context)
         {
 
-            var wc = _multiTenancyService.GetWorkContext(element.TenantName);
+            var wc = _multiTenancyService.GetContext(element.TenantName);
             var _services = wc.Resolve<IOrchardServices>();
             var _layoutRepository = wc.Resolve<IRepository<LayoutRecord>>();
             var _tokenizer = wc.Resolve<ITokenizer>();
@@ -232,7 +232,7 @@ namespace MainBit.MultiTenancy.Drivers
         protected override void DescribeForm(DescribeContext context) {
             context.Form("TenancyProjectionForm", factory =>
             {
-                var wc = _multiTenancyService.GetWorkContext("Default");
+                var wc = _multiTenancyService.GetContext("Default");
                 var _contentManager = wc.Resolve<IContentManager>();
                 var _projectionManager = wc.Resolve<IProjectionManager>();
 

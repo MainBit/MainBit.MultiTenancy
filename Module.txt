@@ -8,10 +8,13 @@ Description: Description for the module
 Features:
     MainBit.MultiTenancy:
         Description: Provides tenant picker part (for relating content item and tenant).
-		Dependencies:
+		Dependencies: Orchard.MultiTenancy
 	MainBit.MultiTenancy.Relations:
         Description: Provides content part that allow to pick tenant for content items (relate a tenant and a content item).
 		Dependencies: MainBit.MultiTenancy
 	MainBit.MultiTenancy.Layouts:
         Description: Provides TenancyProjection element that uses query from default tenant.
 		Dependencies: Orchard.Layouts, Orchard.Projections, Orchard.Forms, Orchard.Tokens, MainBit.MultiTenancy
+	MainBit.MultiTenancy.ContentRelations:
+        Description: Provides content part that allow to set related default tenant content item id.
+		Dependencies: MainBit.MultiTenancy

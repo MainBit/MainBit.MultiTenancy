@@ -18,7 +18,13 @@ namespace MainBit.MultiTenancy.Services
 
     public interface ITenantWorkContextAccessor : IDependency
     {
-        WorkContext GetWorkContext(string tenantName);
+        WorkContext GetContext(string tenantName);
+    }
+
+    public static class ITenantWorkContextAccessorEstensions {
+        public static WorkContext GetDefaultTenantContext(this ITenantWorkContextAccessor tenantWorkContextAccessor) {
+            return tenantWorkContextAccessor.GetContext(ShellSettings.DefaultName);
+        }
     }
 
     public class TenantWorkContextAccessor : ITenantWorkContextAccessor, IWorkContextEvents
@@ -50,7 +56,7 @@ namespace MainBit.MultiTenancy.Services
             //_urlHelper = urlHelper;
         }
 
-        public WorkContext GetWorkContext(string tenantName)
+        public WorkContext GetContext(string tenantName)
         {
             if(_shellSettings.Name == tenantName) {
                 return _wca.GetContext();

@@ -2,6 +2,7 @@
 using Orchard;
 using Orchard.ContentManagement;
 using Orchard.Environment.Configuration;
+using Orchard.MultiTenancy.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,57 +11,89 @@ using System.Web.Mvc;
 
 namespace MainBit.MultiTenancy.Services
 {
-    public interface ITenantService : IDependency
+    public interface IMainBitTenantService : IDependency
     {
         string TenantUrl(ShellSettings tenantShellSettings);
+        ShellSettings GetTenantByUrl(string url);
     }
 
-    public class TenantService : ITenantService
+    public class MainBitTenantService : IMainBitTenantService
     {
         private readonly ITenantWorkContextAccessor _twca;
         private readonly UrlHelper _urlHelper;
         private readonly IContentManager _contentManager;
         private readonly IWorkContextAccessor _wca;
-        private readonly Orchard.Localization.Services.ICultureManager _cultureManager;
+        private readonly ITenantService _tenantService;
 
-        public TenantService(ITenantWorkContextAccessor twca,
+        public MainBitTenantService(ITenantWorkContextAccessor twca,
             UrlHelper urlHelper,
             IContentManager contentManager,
-            IWorkContextAccessor wca)
+            IWorkContextAccessor wca,
+            ITenantService tenantService)
         {
             _twca = twca;
             _urlHelper = urlHelper;
             _contentManager = contentManager;
             _wca = wca;
+            _tenantService = tenantService;
         }
 
         public string TenantUrl(ShellSettings tenantShellSettings)
         {
-            var defaultWorkContext = _twca.GetWorkContext(ShellSettings.DefaultName);
-            var defaultBaseUrl = defaultWorkContext.CurrentSite.BaseUrl;
-
-            string tenantHost = null;
+            string result = null;
             if (!string.IsNullOrEmpty(tenantShellSettings.RequestUrlHost))
             {
                 var tenantHosts = tenantShellSettings.RequestUrlHost.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 if (tenantHosts.Length > 0)
                 {
                     // need to pick suitable host
-                    //tenantHost = string.Format("{0}://{1}", _urlHelper.RequestContext.HttpContext.Request.Url.Scheme, tenantHosts[0]);
-                    tenantHost = string.Format("//{0}", tenantHosts[0]);
+                    //result = string.Format("//{0}", tenantHosts[0]);
+                    result = string.Format("{0}://{1}", _urlHelper.RequestContext.HttpContext.Request.Url.Scheme, tenantHosts[0]);
                 }
             }
+            
+            if(result == null)
+            {
+                var defaultWorkContext = _twca.GetContext(ShellSettings.DefaultName);
+                result = defaultWorkContext.CurrentSite.BaseUrl;
+            }
 
-            var result = tenantHost ?? defaultBaseUrl;
-
-            var applicationPath = _urlHelper.RequestContext.HttpContext.Request.ApplicationPath;
-            if (!string.IsNullOrEmpty(applicationPath) && !string.Equals(applicationPath, "/"))
-                result += applicationPath;
+            //application path alwayes in result ???
+            //var applicationPath = _urlHelper.RequestContext.HttpContext.Request.ApplicationPath;
+            //if (!string.IsNullOrEmpty(applicationPath) && !string.Equals(applicationPath, "/"))
+            //    result += applicationPath;
 
             if (!string.IsNullOrEmpty(tenantShellSettings.RequestUrlPrefix))
                 result += "/" + tenantShellSettings.RequestUrlPrefix;
 
             return result;
+        }
+
+        public ShellSettings GetTenantByUrl(string url)
+        {
+            string url2;
+            if (url.StartsWith("//"))
+            {
+                url2 = url.Substring(2);
+            }
+            else if (url.StartsWith("http://"))
+            {
+                url2 = url.Substring(7);
+            }
+            else if (url.StartsWith("https://"))
+            {
+                url2 = url.Substring(8);
+            }
+            else
+            {
+                url2 = url;
+            }
+
+            var tenantHosts = _tenantService.GetTenants().ToDictionary(t => t, t => t.RequestUrlHost.Split(','));
+            return tenantHosts
+                .Where(t => t.Value.Any(tenantHost => url2.StartsWith(tenantHost)))
+                .Select(t => t.Key)
+                .FirstOrDefault();
         }
 
         public void Test()

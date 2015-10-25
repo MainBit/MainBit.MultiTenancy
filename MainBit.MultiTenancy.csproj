@@ -62,6 +62,7 @@
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\aspnetwebapi\System.Web.Http.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -94,6 +95,11 @@
       <Name>Orchard.Core</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\MainBit.Alias\MainBit.Alias.csproj">
+      <Project>{27833a1d-5b73-4268-9eb8-b25ee4f15eef}</Project>
+      <Name>MainBit.Alias</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Orchard.Forms\Orchard.Forms.csproj">
       <Project>{642a49d7-8752-4177-80d6-bfbbcfad3de0}</Project>
       <Name>Orchard.Forms</Name>
@@ -121,21 +127,29 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\TenantContentController.cs" />
+    <Compile Include="Drivers\TenantContentPartDriver.cs" />
     <Compile Include="Drivers\TenantProjectionElementDriver.cs" />
     <Compile Include="Drivers\TenantPartDriver.cs" />
     <Compile Include="Elements\TenantProjection.cs" />
+    <Compile Include="Events\TenantContentUrlContextEventHandler.cs" />
+    <Compile Include="Handlers\TenantContentPartHandler.cs" />
     <Compile Include="Handlers\TenantPartHandler.cs" />
+    <Compile Include="Helpers\ITenantServiceExtensions.cs" />
     <Compile Include="Helpers\TenantExtensions.cs" />
+    <Compile Include="Migrations\ContentRelations.cs" />
     <Compile Include="Migrations\Relations.cs" />
+    <Compile Include="Models\TenantContentPartRecord.cs" />
+    <Compile Include="Models\TenantContentPart.cs" />
     <Compile Include="Models\TenantPart.cs" />
     <Compile Include="Models\TenantPartRecord.cs" />
+    <Compile Include="Services\ITenantContentService.cs" />
     <Compile Include="Services\ITenantWorkContextAccessor.cs" />
-    <Compile Include="Services\ITenantService.cs" />
+    <Compile Include="Services\IMainBitTenantService.cs" />
+    <Compile Include="ViewModels\TenantContentEditorViewModel.cs" />
     <Compile Include="ViewModels\TenantEditorViewModel.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Placement.info" />
   </ItemGroup>
@@ -144,6 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Elements\TenantProjection.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EditorTemplates\Parts\TenantContent.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -8,6 +8,8 @@ using Orchard.Mvc.Html;
 using MainBit.MultiTenancy.Services;
 using Orchard;
 using Orchard.Environment.Configuration;
+using MainBit.MultiTenancy.Models;
+using Orchard.MultiTenancy.Services;
 
 namespace MainBit.MultiTenancy.Helpers {
     public static class TenantExtensions {
@@ -15,10 +17,9 @@ namespace MainBit.MultiTenancy.Helpers {
         public static string TenantUrl(this UrlHelper urlHelper, ShellSettings tenantShellSettings)
         {
             var workContext = urlHelper.RequestContext.GetWorkContext();
-            var tenantService = workContext.Resolve<ITenantService>();
+            var tenantService = workContext.Resolve<IMainBitTenantService>();
             return tenantService.TenantUrl(tenantShellSettings);
         }
-
 
         public static HtmlHelper TenantHtmlHelper(this HtmlHelper html, string tenantName)
         {
@@ -35,9 +36,16 @@ namespace MainBit.MultiTenancy.Helpers {
         {
             var currentWorkContext = html.GetWorkContext();
             var multiTenancyService = currentWorkContext.Resolve<ITenantWorkContextAccessor>();
-            var tenantWorkContext = multiTenancyService.GetWorkContext(tenantName);
+            var tenantWorkContext = multiTenancyService.GetContext(tenantName);
 
             return tenantWorkContext;
+        }
+
+        public static string TenantContentUrl(this UrlHelper urlHelper, IContent content, string tenantName)
+        {
+            var workContext = urlHelper.RequestContext.GetWorkContext();
+            var _tenantContentService = workContext.Resolve<ITenantContentService>();
+            return _tenantContentService.ItemDisplayUrl(content, tenantName);
         }
     }
 }

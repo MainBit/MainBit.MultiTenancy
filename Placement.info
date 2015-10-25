@@ -1,3 +1,4 @@
 ﻿<Placement>
     <Place Parts_Tenant_Edit="Content:10" />
+    <Place Parts_TenantContent_Edit="Content:10" />
 </Placement>

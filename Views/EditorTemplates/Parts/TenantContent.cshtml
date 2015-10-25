@@ -1,0 +1,9 @@
+﻿@model  MainBit.MultiTenancy.ViewModels.TenantContentEditorViewModel
+<fieldset>
+    <legend>@T("Tenant content")</legend>
+    <div class="editor-field">
+        @Html.LabelFor(m => m.TenantContentPart.MasterContentItemId, T("Default tenant content Id"))
+        @Html.TextBoxFor(m => m.TenantContentPart.MasterContentItemId, new { type = "number", @class = "text small" })
+        <span class="hint"></span>
+    </div>
+</fieldset>
