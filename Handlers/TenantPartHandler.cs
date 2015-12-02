@@ -27,7 +27,7 @@ namespace MainBit.MultiTenancy.Handlers
         {
             part.ShellSettingsField.Loader(() => string.IsNullOrWhiteSpace(part.Name)
                 ? null
-                : _shellSettingsManager.LoadSettings().Where(settings => settings.Name == part.Name).Single());
+                : _shellSettingsManager.LoadSettings().Where(settings => settings.Name == part.Name).FirstOrDefault());
         }
     }
 }
