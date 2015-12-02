@@ -46,7 +46,7 @@ namespace MainBit.MultiTenancy.Drivers
             }
         }
 
-        protected override void OnDisplaying(TenantProjection element, ElementDisplayContext context)
+        protected override void OnDisplaying(TenantProjection element, ElementDisplayingContext context)
         {
 
             var wc = _multiTenancyService.GetContext(element.TenantName);
