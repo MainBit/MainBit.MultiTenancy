@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using System.Linq;
 using Orchard.Data;
 using Orchard.ContentManagement.Handlers;
@@ -8,7 +7,6 @@ using Orchard.Environment.Extensions;
 
 namespace MainBit.MultiTenancy.Handlers
 {
-    [UsedImplicitly]
     [OrchardFeature("MainBit.MultiTenancy.Relations")]
     public class TenantPartHandler : ContentHandler {
         

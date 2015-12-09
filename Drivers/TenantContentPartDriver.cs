@@ -1,27 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using JetBrains.Annotations;
-using Orchard.Mvc.Html;
-using Orchard.ContentManagement;
-using Orchard.ContentManagement.Aspects;
+﻿using Orchard.ContentManagement;
 using Orchard.ContentManagement.Drivers;
-using Orchard.Core.Common.Models;
-using Orchard.Core.Common.Settings;
-using Orchard.Core.Common.ViewModels;
-using Orchard.Services;
-using System.Web.Mvc;
-using System.Web.Routing;
 using MainBit.MultiTenancy.Models;
 using MainBit.MultiTenancy.ViewModels;
-using Orchard.MultiTenancy.Services;
 using Orchard;
 using Orchard.Environment.Configuration;
 using Orchard.Environment.Extensions;
 using System;
 
 namespace MainBit.MultiTenancy.Drivers {
-    [UsedImplicitly]
     [OrchardFeature("MainBit.MultiTenancy.ContentRelations")]
     public class TenantContentPartDriver : ContentPartDriver<TenantContentPart> {
 
