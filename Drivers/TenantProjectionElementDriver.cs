@@ -34,8 +34,10 @@ namespace MainBit.MultiTenancy.Drivers
     {
         private readonly ITenantWorkContextAccessor _multiTenancyService;
 
-        public TenantProjectionElementDriver(IFormManager formManager, ITenantWorkContextAccessor multiTenancyService)
-            : base(formManager) 
+        public TenantProjectionElementDriver(
+            IFormsBasedElementServices formsServices,
+            ITenantWorkContextAccessor multiTenancyService)
+            : base(formsServices)
         {
             _multiTenancyService = multiTenancyService;
         }

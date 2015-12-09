@@ -1,10 +1,6 @@
 ﻿using Orchard.ContentManagement;
-using Orchard.Core.Common.Utilities;
+using Orchard.ContentManagement.Utilities;
 using Orchard.Environment.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace MainBit.MultiTenancy.Models
 {
