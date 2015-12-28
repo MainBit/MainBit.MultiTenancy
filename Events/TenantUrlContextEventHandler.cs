@@ -7,11 +7,11 @@ using System.Web;
 
 namespace MainBit.MultiTenancy.Events
 {
-    public class TenantContentUrlContextEventHandler : IUrlContextEventHandler
+    public class TenantUrlContextEventHandler : IUrlContextEventHandler
     {
         private readonly ITenantContentService _tenantContentService;
 
-        public TenantContentUrlContextEventHandler(ITenantContentService tenantContentService)
+        public TenantUrlContextEventHandler(ITenantContentService tenantContentService)
         {
             _tenantContentService = tenantContentService;
         }

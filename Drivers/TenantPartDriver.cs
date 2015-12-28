@@ -48,6 +48,7 @@ namespace MainBit.MultiTenancy.Drivers {
         {
             var model = BuildEditorViewModel(part);
             updater.TryUpdateModel(model, Prefix, null, null);
+            part.Name = part.Name ?? string.Empty; // for filter like not equal (because null works incorrect in filter like "not tenantPartRecord.Name = 'Default'")
             //return Editor(part, shapeHelper);
             return ContentShape("Parts_Tenant_Edit", () => shapeHelper.EditorTemplate(TemplateName: "Parts/Tenant", Model: model, Prefix: Prefix));
         }

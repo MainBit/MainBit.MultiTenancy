@@ -11,7 +11,7 @@ namespace MainBit.MultiTenancy.Migrations
         public int Create() {
             SchemaBuilder.CreateTable("TenantPartRecord",
                 table => table
-                    .ContentPartVersionRecord()
+                    .ContentPartRecord()
                     .Column<string>("Name", c => c.WithLength(2048))
                 );
 

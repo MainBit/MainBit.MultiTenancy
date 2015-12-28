@@ -12,7 +12,7 @@ namespace MainBit.MultiTenancy.Migrations
         {
             SchemaBuilder.CreateTable("TenantContentPartRecord",
                 table => table
-                    .ContentPartVersionRecord()
+                    .ContentPartRecord()
                     .Column<int>("MasterContentItemId")
                 );
 

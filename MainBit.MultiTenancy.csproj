@@ -24,6 +24,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -132,7 +133,7 @@
     <Compile Include="Drivers\TenantProjectionElementDriver.cs" />
     <Compile Include="Drivers\TenantPartDriver.cs" />
     <Compile Include="Elements\TenantProjection.cs" />
-    <Compile Include="Events\TenantContentUrlContextEventHandler.cs" />
+    <Compile Include="Events\TenantUrlContextEventHandler.cs" />
     <Compile Include="Handlers\TenantContentPartHandler.cs" />
     <Compile Include="Handlers\TenantPartHandler.cs" />
     <Compile Include="Helpers\ITenantServiceExtensions.cs" />
