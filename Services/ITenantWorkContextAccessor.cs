@@ -58,8 +58,10 @@ namespace MainBit.MultiTenancy.Services
 
         public WorkContext GetContext(string tenantName)
         {
-            if(_shellSettings.Name == tenantName) {
-                return _wca.GetContext();
+            var currentWorkContext = _wca.GetContext();
+
+            if (_shellSettings.Name == tenantName) {
+                return currentWorkContext;
             }
 
             if(!TenantWorkContextScopes.ContainsKey(tenantName)) {
@@ -73,9 +75,11 @@ namespace MainBit.MultiTenancy.Services
                 //return httpContextBase;
 
                 //shellContext.LifetimeScope.Resolve<IHttpContextAcсessor>()
-                TenantWorkContextScopes[tenantName] = shellContext.LifetimeScope.Resolve<IWorkContextAccessor>().CreateWorkContextScope();
+                var tenantWorkContextScope = shellContext.LifetimeScope.Resolve<IWorkContextAccessor>().CreateWorkContextScope();
+                tenantWorkContextScope.WorkContext.CurrentCulture = currentWorkContext.CurrentCulture;
+                TenantWorkContextScopes[tenantName] = tenantWorkContextScope;
             }
-            return TenantWorkContextScopes[tenantName].Resolve<WorkContext>();
+            return TenantWorkContextScopes[tenantName].WorkContext;
         }
 
         ~TenantWorkContextAccessor()
