@@ -7,7 +7,7 @@ OrchardVersion: 1.10
 Description: Description for the module
 Features:
     MainBit.MultiTenancy:
-        Description: Provides tenant picker part (for relating content item and tenant).
+        Description: Provide TenantWorkContextAccessor.
 		Dependencies: Orchard.MultiTenancy
 	MainBit.MultiTenancy.Relations:
         Description: Provides content part that allow to pick tenant for content items (relate a tenant and a content item).
